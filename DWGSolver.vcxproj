@@ -146,6 +146,7 @@
     <ClInclude Include="Header\OdDbHeader.h" />
     <ClInclude Include="Header\OdGeHeader.h" />
     <ClInclude Include="Utils\MyServices.h" />
+    <ClInclude Include="Utils\OdDbUtils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

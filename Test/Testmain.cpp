@@ -4,6 +4,7 @@
 #include "toString.h"
 
 #include "..\Utils\MyServices.h"
+#include "..\Utils\OdDbUtils.hpp"
 #include "..\Header\OdDbHeader.h"
 
 #include "TeighaLibrary.h"
@@ -34,21 +35,24 @@ int main()
 		OdDbBlockTableRecordPtr pRecord = pDb->getModelSpaceId().safeOpenObject(OdDb::OpenMode::kForRead);
 
 		OdArray<OdDbLinePtr> lines;
-		int NN = 0;
-		auto it = pRecord->newIterator();
-		for (it->start(); !it->done(); it->step())
-		{
-			OdDbEntityPtr obj = it->entity();
-			OdDbLinePtr line = OdDbLine::cast(obj);
-			if (line != nullptr)
-			{
-				NN += 1;
-				lines.append(line);
-			}
-		}
+		OdArray<OdDbEntityPtr> entities;
+		OdArray<OdDbCirclePtr> circles;
+		OdArray<OdDbLayerTableRecordPtr> layers;
 
-		std::cout << NN << std::endl;
-		std::cout << lines.size() << std::endl;
+		OdDbUtils::getEntities(pDb, entities);
+		OdDbUtils::getLines(pDb, lines);
+		OdDbUtils::getCircles(pDb, circles);
+		OdDbUtils::getLayers(pDb, layers);
+
+		std::cout << "entities size = " << entities.size() << std::endl;
+		std::cout << "lines size = " << lines.size() << std::endl;
+		std::cout << "circles size = " << circles.size() << std::endl;
+		std::cout << "layers size = " << layers.size() << std::endl;
+
+		for (auto layer = layers.begin();layer!=layers.end();layer++)
+		{
+			std::cout << (*layer)->getName() << std::endl;
+		}
 	}
 	catch (...)
 	{

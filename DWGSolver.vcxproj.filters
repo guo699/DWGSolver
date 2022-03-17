@@ -29,5 +29,8 @@
     <ClInclude Include="Header\OdGeHeader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\OdDbUtils.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
