@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils\MyServices.h">
+    <ClInclude Include="Utils\MyServices.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Header\OdDbHeader.h">
@@ -30,6 +30,27 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Utils\OdDbUtils.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\OdDbCreate.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\OdInitialize.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\Test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\DbCurveEx.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\EntitiesFilter.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\DwgRead.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Common.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,6 +9,7 @@
 #include "OdArray.h"
 #include "DbLine.h"
 #include "DbCircle.h"
+#include "DbBlockReference.h"
 
 class OdDbUtils
 {
@@ -61,6 +62,10 @@ public:
 		return circles.size();
 	}
 
+
+	/// <summary>
+	/// 获取所有图层
+	/// </summary>
 	static int getLayers(const OdDbDatabasePtr& pDb, OdArray<OdDbLayerTableRecordPtr>& layers)
 	{
 		OdDbLayerTablePtr pLayer = pDb->getLayerTableId().safeOpenObject(OdDb::OpenMode::kForRead);
@@ -74,6 +79,10 @@ public:
 
 		return layers.size();
 	}
+
+	/// <summary>
+	/// 获取某一图层内的所有实体
+	/// </summary>
 
 	static int getEntitiesGivenLayer(const OdDbDatabasePtr& pDb, const OdDbLayerTableRecordPtr& layer, OdArray<OdDbEntityPtr>& entities)
 	{
@@ -91,4 +100,76 @@ public:
 
 		return entities.size();
 	}
+
+	/// <summary>
+	/// 获取某一图层内的所有实体
+	/// </summary>
+	static int getEntitiesGivenLayer(const OdDbDatabasePtr& pDb, OdString layerName, OdArray<OdDbEntityPtr>& entities)
+	{
+		OdDbBlockTableRecordPtr pRecord = pDb->getModelSpaceId().safeOpenObject(OdDb::OpenMode::kForRead);
+
+		OdDbObjectIteratorPtr it = pRecord->newIterator();
+		for (it->start(); !it->done(); it->step())
+		{
+			OdDbEntityPtr entity = it->entity();
+			if (entity->layer() == layerName)
+			{
+				entities.append(entity);
+			}
+		}
+
+		return entities.size();
+	}
+
+	/// <summary>
+	/// 获取所有的块
+	/// </summary>
+
+	static int getBlocks(const OdDbDatabasePtr& pDb,OdArray<OdDbBlockTableRecordPtr>& blocks)
+	{
+		OdDbBlockTablePtr pBt = pDb->getBlockTableId().safeOpenObject(OdDb::OpenMode::kForRead);
+		
+		OdDbSymbolTableIteratorPtr pSt = pBt->newIterator();
+		for (pSt->start(); !pSt->done(); pSt->step())
+		{
+			OdDbBlockTableRecordPtr pRecord = pSt->getRecord();
+			blocks.append(pRecord);
+		}
+
+		return blocks.size();
+	}
+
+	/// <summary>
+	/// 获取所有的块引用
+	/// </summary>
+
+	static int getBlockReferences(const OdDbDatabasePtr& pDb, OdArray<OdDbBlockReferencePtr>& blockrs)
+	{
+		OdDbBlockTableRecordPtr pRecord = pDb->getModelSpaceId().safeOpenObject(OdDb::OpenMode::kForRead);
+
+		OdDbBlockReferencePtr blockRef;
+		OdDbObjectIteratorPtr it = pRecord->newIterator();
+		for (it->start(); !it->done(); it->step())
+		{
+			blockRef = OdDbBlockReference::cast(it->entity());
+			if (blockRef != nullptr)
+			{
+				blockrs.append(blockRef);
+			}
+		}
+
+		return blockrs.size();
+	}
+
+	/// <summary>
+	/// 根据句柄获取对象
+	/// </summary>
+
+	static OdDbObjectPtr getDBObjectFromHandle(OdDbDatabasePtr& pDb, int value)
+	{
+		OdDbHandle handle(value);
+		OdDbObjectPtr pObj = pDb->getOdDbObjectId(handle).safeOpenObject(OdDb::OpenMode::kForRead);
+
+		return pObj;
+	}	
 };

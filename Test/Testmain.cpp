@@ -1,27 +1,43 @@
+#pragma once
+
 #include "OdaCommon.h"
 #include "OdPlatformSettings.h"
 #include "RxDynamicModule.h"
 #include "toString.h"
 
-#include "..\Utils\MyServices.h"
+#include "..\Utils\MyServices.hpp"
 #include "..\Utils\OdDbUtils.hpp"
+#include "..\Utils\OdDbCreate.hpp"
+#include "..\Utils\Common.hpp"
+
 #include "..\Header\OdDbHeader.h"
+#include "..\Header\OdInitialize.h"
+#include "..\Header\OdGeHeader.h"
 
 #include "TeighaLibrary.h"
-
 #include "iostream"
+#include <typeinfo>
 
-ODRX_DECLARE_STATIC_MODULE_ENTRY_POINT(ModelerModule);
-ODRX_DECLARE_STATIC_MODULE_ENTRY_POINT(OdRecomputeDimBlockModule);
-ODRX_DECLARE_STATIC_MODULE_ENTRY_POINT(ExFieldEvaluatorModule);
-ODRX_DECLARE_STATIC_MODULE_ENTRY_POINT(TD_3DSolidHistoryModule);
 
-ODRX_BEGIN_STATIC_MODULE_MAP()
-ODRX_DEFINE_STATIC_APPLICATION(OdModelerGeometryModuleName, ModelerModule)
-ODRX_DEFINE_STATIC_APPLICATION(OdRecomputeDimBlockModuleName, OdRecomputeDimBlockModule)
-ODRX_END_STATIC_MODULE_MAP()
+using namespace System;
+using namespace Autodesk::Revit::ApplicationServices;
+using namespace Autodesk::Revit::Attributes;
+using namespace Autodesk::Revit::DB;
+using namespace Autodesk::Revit::UI;
 
-#define DWGFILEPATH L"C:\\Users\\IronBin\\Desktop\\test.dwg"
+//[TransactionAttribute(TransactionMode::Manual)]
+//[RegenerationAttribute(RegenerationOption::Manual)]
+//public ref class TestCommand :IExternalCommand
+//{
+//public:
+//
+//	virtual Autodesk::Revit::UI::Result Execute(Autodesk::Revit::UI::ExternalCommandData^ commandData, System::String^% message, Autodesk::Revit::DB::ElementSet^ elements)
+//	{
+//		TaskDialog::Show("CPP/CLI", TestNamespace::RefTest::GetCircleCount().ToString());
+//
+//		return Autodesk::Revit::UI::Result();
+//	}
+//};
 
 int main()
 {
@@ -29,44 +45,51 @@ int main()
 	OdStaticRxObject<MyServices> service;
 	odInitialize(&service);
 
+	OdArray<OdDbCirclePtr> blockrs;
 	try
 	{
-		OdDbDatabasePtr pDb = service.readFile(DWGFILEPATH);
-		OdDbBlockTableRecordPtr pRecord = pDb->getModelSpaceId().safeOpenObject(OdDb::OpenMode::kForRead);
+		service.disableOutput(true);
 
-		OdArray<OdDbLinePtr> lines;
-		OdArray<OdDbEntityPtr> entities;
-		OdArray<OdDbCirclePtr> circles;
-		OdArray<OdDbLayerTableRecordPtr> layers;
+		OdDbDatabasePtr pDb = service.readFile(L"C:\\Users\\IronBin\\Desktop\\test.dwg");
 
-		OdDbUtils::getEntities(pDb, entities);
-		OdDbUtils::getLines(pDb, lines);
-		OdDbUtils::getCircles(pDb, circles);
-		OdDbUtils::getLayers(pDb, layers);
+		OdDbEntityPtrArray entities;
+		int count = OdDbUtils::getEntities(pDb, entities);
 
-		std::cout << "entities size = " << entities.size() << std::endl;
-		std::cout << "lines size = " << lines.size() << std::endl;
-		std::cout << "circles size = " << circles.size() << std::endl;
-		std::cout << "layers size = " << layers.size() << std::endl;
+		OdGePoint3d min(788.037, -1164.160, -10);
+		OdGePoint3d max(1478.89,557.58,10);
+		OdGeExtents3d range(min, max);
+		std::cout << toString(range.minPoint()) << " " << toString(range.maxPoint()) << std::endl;
 
-		for (auto layer = layers.begin();layer!=layers.end();layer++)
+		OdDbEntityPtrArray inner;
+
+		for (size_t i = 0; i < count; i++)
 		{
-			std::cout << (*layer)->getName() << std::endl;
+			OdDbEntityPtr entity = entities[i];
+			OdGeExtents3d box;
+			entity->getGeomExtents(box);
+			std::cout << toString(box.minPoint()) << "  " << toString(box.maxPoint()) << std::endl;
+			if (OdaUtils::isInclude(range, box))
+			{
+				inner.append(entity);
+			}
 		}
-	}
-	catch (...)
-	{
-		odPrintConsoleString(L"Error On Business Logic");
-	}
 
+
+		std::cout << entities.size() << std::endl;
+		std::cout << inner.size() << std::endl;
+		
+	}
+	catch (OdError error)
+	{
+		std::cout << error.description() << std::endl;
+	}
 	try
 	{
 		odUninitialize();
 	}
 	catch (...)
 	{
-		odPrintConsoleString(L"Error On odUninitialze");
-	}
 
+	}
 	return 0;
 }

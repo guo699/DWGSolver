@@ -24,6 +24,7 @@
     <ProjectGuid>{9e116251-9f62-4d25-9527-428a51f0f666}</ProjectGuid>
     <RootNamespace>DWGSolver</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <TargetFrameworkVersion>4.7</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -51,6 +52,7 @@
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -130,7 +132,9 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <DisableSpecificWarnings>4819;4248;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,8 +149,25 @@
   <ItemGroup>
     <ClInclude Include="Header\OdDbHeader.h" />
     <ClInclude Include="Header\OdGeHeader.h" />
-    <ClInclude Include="Utils\MyServices.h" />
+    <ClInclude Include="Header\OdInitialize.h" />
+    <ClInclude Include="Test\Test.h" />
+    <ClInclude Include="Utils\Common.hpp" />
+    <ClInclude Include="Utils\DbCurveEx.hpp" />
+    <ClInclude Include="Utils\DwgRead.hpp" />
+    <ClInclude Include="Utils\EntitiesFilter.hpp" />
+    <ClInclude Include="Utils\MyServices.hpp" />
+    <ClInclude Include="Utils\OdDbCreate.hpp" />
     <ClInclude Include="Utils\OdDbUtils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>..\..\..\Revit2018\Revit 2018\RevitAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>..\..\..\Revit2018\Revit 2018\RevitAPIUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

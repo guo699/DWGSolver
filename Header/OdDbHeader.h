@@ -7,3 +7,6 @@
 #include "DbArc.h"
 #include "DbPoint.h"
 #include "Db3dSolid.h"
+#include "DbText.h"
+#include "DbHandle.h"
+#include "DbEllipse.h"
