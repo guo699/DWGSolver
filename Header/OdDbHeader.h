@@ -10,3 +10,5 @@
 #include "DbText.h"
 #include "DbHandle.h"
 #include "DbEllipse.h"
+#include "DbBlockReference.h"
+#include "DbGroup.h"

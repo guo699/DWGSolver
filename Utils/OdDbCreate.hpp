@@ -82,7 +82,7 @@ public:
 		return rect;
 	}
 
-	static void ReSave(OdDbDatabasePtr& pDb)
+	static void reSave(OdDbDatabasePtr& pDb)
 	{
 		OdString file = pDb->getFilename();
 		pDb->writeFile(file, OdDb::SaveType::kDwg, OdDb::DwgVersion::kDHL_CURRENT);

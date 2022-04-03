@@ -9,6 +9,7 @@
 #include "..\Utils\OdDbUtils.hpp"
 #include "..\Utils\OdDbCreate.hpp"
 #include "..\Utils\Common.hpp"
+#include "..\Utils\DbCurveEx.hpp"
 
 #include "..\Header\OdDbHeader.h"
 #include "..\Header\OdInitialize.h"
@@ -22,7 +23,7 @@
 using namespace System;
 using namespace Autodesk::Revit::ApplicationServices;
 using namespace Autodesk::Revit::Attributes;
-using namespace Autodesk::Revit::DB;
+using namespace Autodesk::Revit::DB; 
 using namespace Autodesk::Revit::UI;
 
 //[TransactionAttribute(TransactionMode::Manual)]
@@ -52,32 +53,22 @@ int main()
 
 		OdDbDatabasePtr pDb = service.readFile(L"C:\\Users\\IronBin\\Desktop\\test.dwg");
 
+		OdDbCirclePtr c1 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 100);
+		OdDbCirclePtr c2 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 200);
+		OdDbCirclePtr c3 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 300);
+		OdDbCirclePtr c4 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 400);
+
 		OdDbEntityPtrArray entities;
-		int count = OdDbUtils::getEntities(pDb, entities);
+		entities.append(c1);
+		entities.append(c2);
+		entities.append(c3);
+		entities.append(c4);
 
-		OdGePoint3d min(788.037, -1164.160, -10);
-		OdGePoint3d max(1478.89,557.58,10);
-		OdGeExtents3d range(min, max);
-		std::cout << toString(range.minPoint()) << " " << toString(range.maxPoint()) << std::endl;
+		OdDbGroupPtr pGroup;
+		DbCurveUtils::groupEntities(entities, pGroup);
 
-		OdDbEntityPtrArray inner;
-
-		for (size_t i = 0; i < count; i++)
-		{
-			OdDbEntityPtr entity = entities[i];
-			OdGeExtents3d box;
-			entity->getGeomExtents(box);
-			std::cout << toString(box.minPoint()) << "  " << toString(box.maxPoint()) << std::endl;
-			if (OdaUtils::isInclude(range, box))
-			{
-				inner.append(entity);
-			}
-		}
-
-
-		std::cout << entities.size() << std::endl;
-		std::cout << inner.size() << std::endl;
-		
+		OdDbCreate::reSave(pDb);
+			
 	}
 	catch (OdError error)
 	{
