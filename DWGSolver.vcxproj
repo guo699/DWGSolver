@@ -24,7 +24,7 @@
     <ProjectGuid>{9e116251-9f62-4d25-9527-428a51f0f666}</ProjectGuid>
     <RootNamespace>DWGSolver</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <TargetFrameworkVersion>4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.6</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,7 +47,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -148,6 +148,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\DwgReader.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="Geometry\Circle.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -158,6 +161,15 @@
     <ClCompile Include="Geometry\Point3d.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Managed\CurveConvert.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Managed\OdDbReader.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Common\StringUtils.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Utils\OdEntitySelectUtils.cpp">
@@ -175,29 +187,24 @@
     <ClCompile Include="Utils\OdDbWriteUtils.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Geometry\Vector3d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\DwgReader.h" />
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\Line3d.h" />
     <ClInclude Include="Geometry\Point3d.h" />
+    <ClInclude Include="Common\StringUtils.h" />
+    <ClInclude Include="Managed\CurveConvert.h" />
+    <ClInclude Include="Managed\OdDbReader.h" />
     <ClInclude Include="Utils\OdEntitySelectUtils.h" />
     <ClInclude Include="odstd.h" />
     <ClInclude Include="Header\OdDbHeader.h" />
     <ClInclude Include="Header\OdGeHeader.h" />
-    <ClInclude Include="Header\OdInitialize.h" />
     <ClInclude Include="Header\MyServices.h" />
     <ClInclude Include="Utils\OdDbReadUtils.h" />
     <ClInclude Include="Utils\OdDbWriteUtils.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="RevitAPI">
-      <HintPath>..\..\..\Revit2018\Revit 2018\RevitAPI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="RevitAPIUI">
-      <HintPath>..\..\..\Revit2018\Revit 2018\RevitAPIUI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+    <ClInclude Include="Geometry\Vector3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,6 +39,21 @@
     <ClCompile Include="Utils\OdEntitySelectUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Managed\OdDbReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\DwgReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\StringUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Managed\CurveConvert.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Vector3d.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\MyServices.h">
@@ -48,9 +63,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Header\OdGeHeader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\OdInitialize.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Geometry\Point3d.h">
@@ -72,6 +84,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Utils\OdEntitySelectUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DwgReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\StringUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Managed\CurveConvert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Vector3d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Managed\OdDbReader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

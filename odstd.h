@@ -19,11 +19,12 @@ namespace Geometry
 #include "Header\OdDbHeader.h"
 #include "Header\OdGeHeader.h"
 #include "Header\MyServices.h"
-#include "Header\OdInitialize.h"
 
 
 #include "Geometry\Point3d.h"
 #include "Geometry\Line3d.h"
 #include "Geometry\Circle.h"
+
+#include "Common/StringUtils.h"
 
 #include "TeighaLibrary.h"
