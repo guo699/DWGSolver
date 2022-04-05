@@ -1,24 +1,12 @@
 #pragma once
 
-#include "OdaCommon.h"
-#include "OdPlatformSettings.h"
-#include "RxDynamicModule.h"
-#include "toString.h"
+#include "..\\odstd.h"
+#include "..\\Utils\OdDbReadUtils.h"
 
-#include "..\Utils\MyServices.hpp"
-#include "..\Utils\OdDbUtils.hpp"
-#include "..\Utils\OdDbCreate.hpp"
-#include "..\Utils\Common.hpp"
-#include "..\Utils\DbCurveEx.hpp"
-
-#include "..\Header\OdDbHeader.h"
-#include "..\Header\OdInitialize.h"
-#include "..\Header\OdGeHeader.h"
-
-#include "TeighaLibrary.h"
 #include "iostream"
 #include <typeinfo>
 
+OdModuleInitailize()
 
 using namespace System;
 using namespace Autodesk::Revit::ApplicationServices;
@@ -53,21 +41,12 @@ int main()
 
 		OdDbDatabasePtr pDb = service.readFile(L"C:\\Users\\IronBin\\Desktop\\test.dwg");
 
-		OdDbCirclePtr c1 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 100);
-		OdDbCirclePtr c2 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 200);
-		OdDbCirclePtr c3 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 300);
-		OdDbCirclePtr c4 = OdDbCreate::AddCircle(pDb, OdGePoint3d(100, 100, 0), 400);
+		OdGePoint3d center(0, 0, 0);
+		OdGeVector3d normal(0, 0, 1);
+		double radius = 100;
+		OdGeCircArc3d circle(center,normal,radius);
 
-		OdDbEntityPtrArray entities;
-		entities.append(c1);
-		entities.append(c2);
-		entities.append(c3);
-		entities.append(c4);
-
-		OdDbGroupPtr pGroup;
-		DbCurveUtils::groupEntities(entities, pGroup);
-
-		OdDbCreate::reSave(pDb);
+		
 			
 	}
 	catch (OdError error)

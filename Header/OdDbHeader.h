@@ -2,6 +2,9 @@
 
 #include "DbBlockTable.h"
 #include "DbBlockTableRecord.h"
+#include "DbLayerTableRecord.h"
+#include "DbBlockReference.h"
+#include "DbEntity.h"
 #include "DbCircle.h"
 #include "DbLine.h"
 #include "DbArc.h"
@@ -10,5 +13,4 @@
 #include "DbText.h"
 #include "DbHandle.h"
 #include "DbEllipse.h"
-#include "DbBlockReference.h"
 #include "DbGroup.h"

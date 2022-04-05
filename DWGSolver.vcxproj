@@ -72,6 +72,7 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="TeighaDevR64.props" />
+    <Import Project="OpencvR64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -137,6 +138,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <DisableSpecificWarnings>4819;4248;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>odstd.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,36 +148,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Geometry\Circle.cpp" />
+    <ClCompile Include="Geometry\Circle.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="Geometry\Line3d.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Geometry\Point3d.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Geometry\stdafx.cpp">
+    <ClCompile Include="Utils\OdEntitySelectUtils.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\odstd.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="odstd.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Test\Testmain.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Utils\OdDbReadUtils.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Utils\OdDbWriteUtils.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\\odstd.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geometry\Circle.h" />
     <ClInclude Include="Geometry\Line3d.h" />
     <ClInclude Include="Geometry\Point3d.h" />
-    <ClInclude Include="Geometry\stdafx.h" />
+    <ClInclude Include="Utils\OdEntitySelectUtils.h" />
+    <ClInclude Include="odstd.h" />
     <ClInclude Include="Header\OdDbHeader.h" />
     <ClInclude Include="Header\OdGeHeader.h" />
     <ClInclude Include="Header\OdInitialize.h" />
-    <ClInclude Include="Test\Test.h" />
-    <ClInclude Include="Utils\Common.hpp" />
-    <ClInclude Include="Utils\DbCurveEx.hpp" />
-    <ClInclude Include="Utils\DwgRead.hpp" />
-    <ClInclude Include="Utils\EntitiesFilter.hpp" />
-    <ClInclude Include="Utils\MyServices.hpp" />
-    <ClInclude Include="Utils\OdDbCreate.hpp" />
-    <ClInclude Include="Utils\OdDbUtils.hpp" />
+    <ClInclude Include="Header\MyServices.h" />
+    <ClInclude Include="Utils\OdDbReadUtils.h" />
+    <ClInclude Include="Utils\OdDbWriteUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="RevitAPI">

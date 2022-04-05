@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "..\\odstd.h"
 #include "Circle.h"
 
 namespace Geometry

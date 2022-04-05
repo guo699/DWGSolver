@@ -24,15 +24,24 @@
     <ClCompile Include="Geometry\Line3d.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry\stdafx.cpp">
+    <ClCompile Include="odstd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Geometry\Circle.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\OdDbReadUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\OdDbWriteUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\OdEntitySelectUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils\MyServices.hpp">
+    <ClInclude Include="Header\MyServices.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Header\OdDbHeader.h">
@@ -41,28 +50,7 @@
     <ClInclude Include="Header\OdGeHeader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\OdDbUtils.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\OdDbCreate.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Header\OdInitialize.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Test\Test.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\DbCurveEx.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\EntitiesFilter.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\DwgRead.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Common.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Geometry\Point3d.h">
@@ -71,10 +59,19 @@
     <ClInclude Include="Geometry\Line3d.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry\stdafx.h">
+    <ClInclude Include="odstd.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Geometry\Circle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\OdDbReadUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\OdDbWriteUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\OdEntitySelectUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

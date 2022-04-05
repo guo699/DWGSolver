@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "..\\odstd.h"
 #include "Point3d.h"
 
 namespace Geometry

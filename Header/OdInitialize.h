@@ -21,7 +21,4 @@
 
 #endif
 
-
-OdModuleInitailize()
-
 #endif
